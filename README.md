@@ -4,6 +4,8 @@ An app that enables you to prove who you are without revealing personal informat
 
 [Live demo](http://vipid.herokuapp.com)
 
+[Screencast](https://www.youtube.com/watch?v=xMw3G5GuE5o&feature=youtu.be)
+
 [Diagram](http://vipid.herokuapp.com/images/blockchain_vertical-dia.jpg)
 
 ## Use case
