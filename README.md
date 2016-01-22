@@ -24,8 +24,8 @@ An NGO enables staff in conflict zones to prove their affiliation without showin
 - Enters mnemonic into app.
 - Confirms whether the image that is returned matches staff person. 
 
-## Configuration
-
+## Setup and Configuration
+- bower install
 - Change config_example.js to config.js
 - Set bitly [token](http://dev.bitly.com)
 - Create string containing "PUBLIC_ADDRESS1:ORG1, PUBLIC_ADDRESS1:ORG2"
