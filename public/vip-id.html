@@ -1,0 +1,181 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/iron-image/iron-image.html">
+<link rel="import" href="./bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="bower_components/grid-element/grid-element.html">
+<link rel="import" href="/bower_components/paper-spinner/paper-spinner.html">
+<link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,400,100,300,600,700' rel='stylesheet' type='text/css'>
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+<dom-module id="vip-id">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+      }
+    </style>
+
+<div id='spinner' style='text-align:center;' hidden = "{{!loading}}">
+  <paper-spinner active="{{loading}}"></paper-spinner>
+
+</div>
+<div hidden="{{loading}}">
+  <iron-ajax
+      auto
+      url="{{url}}"
+      handle-as="json"
+      loading="{{loading}}"
+      on-response="himage"
+      last-response="data"
+      ></iron-ajax>
+  <div style='text-align:center;'>
+
+  <iron-media-query query="(max-width: 768px)" query-matches="{{smallScreen}}"></iron-media-query>
+  <iron-media-query query="(min-width: 768px)" query-matches="{{regularScreen}}"></iron-media-query>
+  <template is="dom-if" if="{{regularScreen}}">
+    <div hidden="{{!hidden}}">
+      <iron-image style="width:800px;height:950px; background-color: lightgray;"
+        sizing="cover" preload fade src="{{image_url}}"></iron-image>
+    </div>
+    <div hidden="{{hidden}}">
+      <iron-image style="width:300px;height:430px;background-color: lightgray;"
+        sizing="cover" preload fade src="{{image_url}}"></iron-image>
+
+        <span style='font-size:16px;'>
+        <div>
+           Document signature:  {{private_key}}
+        </div>
+        <div>
+           Address on blockchain:  {{public_address}}
+        </div>
+        <div>
+           Date verified:  {{x_date}}
+        </div>
+        </span>
+      <div class="success message"  hidden="{{status_success}}">
+        <h2>{{org}} VERIFIED!</h2>
+      </div>
+      <div class="warning message" hidden="{{status_warning}}">
+        <h2>NO IMAGE FOUND!</h2>
+      </div>
+      <div class="error message"   hidden="{{status_danger}}">
+        <h2>NO AFFILIATION!</h2>
+      </div>
+    </div>
+  </template>
+<div>
+
+  <template is="dom-if" if="{{smallScreen}}">
+    <div hidden="{{!hidden}}">
+      <iron-image style="width:295px;height:380px; background-color: lightgray;"
+        sizing="cover" preload fade src="{{image_url}}"></iron-image>
+    </div>
+    <div hidden="{{hidden}}">
+      <iron-image style="width:210px; height:245px; background-color: lightgray;"
+        sizing="cover" preload fade src="{{image_url}}"></iron-image>
+
+        <span style='font-size:8px;'>
+        <div>
+           Document signature:  {{private_key}}
+        </div>
+        <div>
+           Address on blockchain:  {{public_address}}
+        </div>
+        <div>
+           Date verified:  {{x_date}}
+        </div>
+        </span>
+      <div class="success message"  hidden="{{status_success}}">
+        <h2>{{org}} VERIFIED!</h2>
+      </div>
+      <div class="warning message" hidden="{{status_warning}}">
+        <h2>NO IMAGE FOUND!</h2>
+      </div>
+      <div class="error message"   hidden="{{status_danger}}">
+        <h2>NO AFFILIATION!</h2>
+      </div>
+    </div>
+  </template>
+
+  </template>
+</dom-module>
+  <script>
+    Polymer({
+      is: 'vip-id',
+
+      himage: function(request){
+        this.loading=false
+        r = request.detail.response
+        this.file_kind      = r[3]
+        this.org            = r[2]
+        this.image_url      = r[0]
+        this.private_key    = r[4] 
+        this.public_key     = r[5] 
+        this.public_address = r[6] 
+        this.x_date         = r[7]
+
+
+        this.status_warning = !this.image_url ? false : true
+        this.status_success = !!r[1] ? false : true
+        this.status_danger  = (!r[1] && !!this.image_url) ? false : true
+        if(!this.image_url)
+          this.image_url = 'http://creepyhalloweenimages.com/free_halloween_photos/symbols/skullicrossedbones_icon.jpg'
+        this.hidden= false;
+
+      },
+
+      properties: {
+
+       image_url:{
+        value: '/images/blockchain_vertical-dia.jpg'
+       }, 
+
+       loading: {
+        type: Boolean,
+        notify: true,
+        value: false
+        },
+
+        status_success: {
+          value: false
+        },
+        status_warning: {
+          value: false
+        },
+
+        status_danger: {
+          value: false
+        },
+
+        hidden: {
+          value: true,
+          notify: true
+        },
+        
+        phrase: {
+          value: '',
+          notify: true
+        },
+
+        url: {
+          computed: 'computeUrl(phrase)'
+        },
+      },
+
+      computeUrl: function(phrase){
+        if(!!phrase){return "/get-hash/" + phrase}
+      },
+
+    });
+  </script>
+

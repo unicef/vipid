@@ -1,0 +1,24 @@
+{
+  "name": "digital_id",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "latest",
+	  "bitcore-lib": "^0.13.7",
+    "browserify": "latest",
+    "gulp": "latest",
+    "bitly": "latest",
+    "sha256": "latest",
+    "request": "latest",
+    "request-json": "latest",
+    "hash-stream": "latest",
+    "apicache": "0.0.12",
+    "ejs": "latest"
+  },
+  "author": "",
+  "license": "ISC"
+}
