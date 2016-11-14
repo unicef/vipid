@@ -7,18 +7,22 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "latest",
-	  "bitcore-lib": "^0.13.7",
-    "browserify": "latest",
-    "gulp": "latest",
+    "apicache": "0.0.12",
+    "bitcore-lib": "^0.13.7",
     "bitly": "latest",
-    "sha256": "latest",
+    "browserify": "latest",
+    "ejs": "latest",
+    "express": "latest",
+    "gulp": "latest",
+    "hash-stream": "latest",
     "request": "latest",
     "request-json": "latest",
-    "hash-stream": "latest",
-    "apicache": "0.0.12",
-    "ejs": "latest"
+    "sha256": "latest"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.6.1",
+    "eslint-config-google": "^0.6.0"
+  }
 }
